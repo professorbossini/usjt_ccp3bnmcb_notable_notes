@@ -1,39 +1,30 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { NoteService } from '../../app/note.service';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({ 
   selector: 'page-home', 
   templateUrl: 'home.html'})
 export class HomePage {
 
-  notes = [
-    {
-      id: 1,
-      title: 'Firebase',
-      content: 'Programar serverless',
-      date: '2019-06-05'
-    },
-    {
-      id: 2,
-      title: 'Angular',
-      content: 'Dá pra usar com Ionic',
-      date: '2019-07-07'
-    },
-    {
-      id: 3,
-      content: 'old but gold',
-      title: 'Java',
-      date: '2019-09-09'
-    }   
-  ]
   
-  constructor(public navCtrl: NavController) {
-    
+  notes;
+  constructor(
+    public navCtrl: NavController, 
+    public noteService: NoteService,
+    public db: AngularFireDatabase) {
+    this.notes = this.noteService.notes;
+    console.log (db);
   }
 
   onItemClick (n){
     //console.log ("onItemClick", n)
     this.navCtrl.push('DetailPage', {noteParam: n})
+  }
+
+  onAddClick (){
+    this.navCtrl.push ('DetailPage');
   }
  
 

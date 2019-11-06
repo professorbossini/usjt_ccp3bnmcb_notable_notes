@@ -6,6 +6,22 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { NoteService } from './note.service';
+
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabaseModule} from 'angularfire2/database'
+import firebase from 'firebase/app';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCEyuFy7rfaDtoIiPY9iDIDSQOQ4iiSCGI",
+  authDomain: "usjt-ccp3bnmcb-notablenotes.firebaseapp.com",
+  databaseURL: "https://usjt-ccp3bnmcb-notablenotes.firebaseio.com",
+  projectId: "usjt-ccp3bnmcb-notablenotes",
+  storageBucket: "usjt-ccp3bnmcb-notablenotes.appspot.com",
+  messagingSenderId: "408342406192",
+  appId: "1:408342406192:web:bf52f44135a6777fcdf9f5",
+  measurementId: "G-WE6VCNP3XD"
+};
 
 @NgModule({
   declarations: [
@@ -14,6 +30,8 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -24,6 +42,7 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
+    NoteService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

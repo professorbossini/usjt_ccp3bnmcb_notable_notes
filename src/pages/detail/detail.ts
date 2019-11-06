@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertCmp, AlertController } from 'ionic-angular';
+import { NoteService } from '../../app/note.service';
 
 /**
  * Generated class for the DetailPage page.
@@ -15,14 +16,52 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetailPage {
 
+  newNoteFlag = false;
   note;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+                public navParams: NavParams,
+                public noteService: NoteService,
+                public alertController: AlertController) {
     this.note = this.navParams.get ('noteParam');
+    if (!this.note){
+      this.note = {
+        id: '',
+        date: '',
+        title: '',
+        content: ''
+      }
+      this.newNoteFlag = true;
+    }
     console.log ('DetailPage', this.note)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailPage');
+  }
+
+  ionViewWillLeave (){
+    if (this.newNoteFlag)
+      this.noteService.addNote (this.note);
+  }
+
+  onTrash(){
+    let confirm = this.alertController.create({
+      title: 'Apagar?',
+      message: `Deseja apagar essa nota: ${this.note.title}?`,
+      buttons: [
+        {
+          text: "Cancelar"
+        },
+        {
+          text: "OK",
+          handler: () => {
+            this.noteService.removeNote(this.note);
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 }
