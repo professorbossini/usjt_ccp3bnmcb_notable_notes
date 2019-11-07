@@ -14,7 +14,7 @@ export class HomePage {
     public navCtrl: NavController, 
     public noteService: NoteService,
     public db: AngularFireDatabase) {
-    this.notes = this.noteService.notes;
+    this.notes = this.noteService.fetchNotes();
     console.log (db);
   }
 

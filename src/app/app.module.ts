@@ -10,7 +10,6 @@ import { NoteService } from './note.service';
 
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database'
-import firebase from 'firebase/app';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCEyuFy7rfaDtoIiPY9iDIDSQOQ4iiSCGI",
